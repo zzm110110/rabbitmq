@@ -12,6 +12,7 @@
         <module>rabbitmq-provider</module>
         <module>rabbitmq-common</module>
         <module>rabbitmq-consumer</module>
+        <module>rabbitmq-consumer-one</module>
     </modules>
 
     <name>RabbitMQ三种常用模式构建</name>

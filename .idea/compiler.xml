@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rabbitmqcommon" />
         <module name="rabbitmqconsumer" />
+        <module name="rabbitmqconsumerone" />
         <module name="rabbitmqprovider" />
       </profile>
     </annotationProcessing>

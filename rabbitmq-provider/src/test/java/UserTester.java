@@ -50,11 +50,60 @@ public class UserTester {
     {
         mockMvc.perform(MockMvcRequestBuilders.post("/user/save")
                 .param("userName","james")
-                .param("name","蔡小子")
-                .param("age","26")
-                .param("balance","0.245")
+                .param("name","邹智敏")
+                .param("age","22")
         )
                 .andDo(MockMvcResultHandlers.log())
                 .andReturn();
+    }
+
+    /**
+     * 测试用户批量添加
+     * @throws Exception
+     */
+    @Test
+    public void testBatchUserAdd() throws Exception
+    {
+        for (int i = 0 ; i < 10 ; i++) {
+            //创建用户注册线程
+            Thread thread = new Thread(new BatchRabbitTester(i));
+            //启动线程
+            thread.start();
+        }
+        //等待线程执行完成
+        Thread.sleep(2000);
+    }
+
+    /**
+     * 批量添加用户线程测试类
+     * run方法发送用户注册请求
+     */
+    class BatchRabbitTester implements Runnable
+    {
+
+        private int index;
+
+        public BatchRabbitTester() { }
+
+        public BatchRabbitTester(int index) {
+            this.index = index;
+        }
+
+
+        @Override
+        public void run() {
+            try {
+                mockMvc.perform(MockMvcRequestBuilders.post("/user/save")
+                        .param("userName","james" + index)
+                        .param("name","邹智敏" + index)
+                        .param("age","22")
+                )
+                        .andDo(MockMvcResultHandlers.log())
+                        .andReturn();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
     }
 }
